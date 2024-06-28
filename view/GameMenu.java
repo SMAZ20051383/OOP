@@ -11,11 +11,6 @@ public class GameMenu {
     private String stoppingUsername;
     private int turnsLeft;
 
-    private static void BuildGame(Controller controller, String username1, String username2) {
-        controller.buildPlayGround();
-        controller.buildCastles(username1);
-        controller.buildCastles(username2);
-    }
 
     public void run(Scanner scanner, Controller controller, String username1, String username2, int turns) {
     }
