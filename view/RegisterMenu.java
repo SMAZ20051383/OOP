@@ -33,9 +33,28 @@ public class RegisterMenu {
                 }
                 if(result==false){
                     Timer timer = new Timer();
+                    TimerTask countdownTask = new TimerTask() {
+                        private int remainingSeconds = 5;
 
+                        @Override
+                        public void run() {
+                            if (remainingSeconds > 0) {
+                                System.out.println("ثانیه‌های باقی‌مانده: " + remainingSeconds);
+                                remainingSeconds--;
+                            } else {
+                                System.out.println("خوش آمدی");
+                                timer.cancel();
+                            }
+                        }
+                    };
+
+                    // برنامه‌ریزی وظیفه برای اجرا هر 1 ثانیه
+                    timer.scheduleAtFixedRate(countdownTask, 0, 1000);
+                } else {
+                    System.out.println("عدد وارد شده صحیح نیست");
                 }
-            } else {
+            }
+            else {
                 System.out.println("Invalid command!");
             }
         }
