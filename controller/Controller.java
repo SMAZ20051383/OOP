@@ -6,43 +6,8 @@ import view.RegisterMenu;
 import java.util.ArrayList;
 
 public class Controller {
-    private static int convertDirectionToInt(String direction) {
-        int dir = -1;
-        switch (direction) {
-            case "left":
-                dir = 0;
-                break;
-            case "middle":
-                dir = 1;
-                break;
-            case "right":
-                dir = 2;
-        }
-        return dir;
-    }
 
-    private static void addGold(User user1, User user2) {
-        int numOfDefeatedCastles = 0;
-        if (user2.getLeftCastle().getHitPoint() == -1) numOfDefeatedCastles++;
-        if (user2.getMiddleCastle().getHitPoint() == -1) numOfDefeatedCastles++;
-        if (user2.getRightCastle().getHitPoint() == -1) numOfDefeatedCastles++;
-        user1.addGold(numOfDefeatedCastles * 20);
-    }
 
-    private static int makeWinner(User user1, User user2) {
-        int winner = 0;
-        if (user1.getCastleHitPoint("left") == -1
-                && user1.getCastleHitPoint("middle") == -1
-                && user1.getCastleHitPoint("right") == -1) {
-            winner += 2;
-        }
-        if (user2.getCastleHitPoint("left") == -1
-                && user2.getCastleHitPoint("middle") == -1
-                && user2.getCastleHitPoint("right") == -1) {
-            winner += 1;
-        }
-        return winner;
-    }
 
     public void run() {
         new RegisterMenu().run(this);
@@ -164,10 +129,6 @@ public class Controller {
         return user.getCardByNameFromBattleDeck(cardName);
     }
 
-    public int getSizeOfDeck(String username) {
-        User user = getUserByUsername(username);
-        return user.getBattleDeck().size();
-    }
 
     public void removeFromDeck(String username, String cardName) {
         Card card = getCardFromDeck(username, cardName);
@@ -194,10 +155,6 @@ public class Controller {
         return output.toString();
     }
 
-    public boolean isGoldEnough(String username, String cardName) {
-        User user = getUserByUsername(username);
-        return user.getGold() >= getCardPrice(cardName);
-    }
 
     public Card getCardFromCards(String username, String cardName) {
         User user = getUserByUsername(username);
@@ -232,17 +189,6 @@ public class Controller {
         user.removeFromCard(card);
     }
 
-    public String showCastleHitPoint(String username) {
-        User user = getUserByUsername(username);
-        return "middle castle: " + user.getCastleHitPoint("middle") + "\n" +
-                "left castle: " + user.getCastleHitPoint("left") + "\n" +
-                "right castle: " + user.getCastleHitPoint("right");
-    }
-
-    public void buildCastles(String username) {
-        User user = getUserByUsername(username);
-        user.BuildCastles();
-    }
 
     public boolean isDirectionWrong(String name) {
         return !name.equals("middle")
@@ -250,135 +196,15 @@ public class Controller {
                 && !name.equals("right");
     }
 
-    public void buildPlayGround() {
-        Cell.renewCells();
-    }
 
-    public String showLineInfo(String direction) {
-        int dir = convertDirectionToInt(direction);
-        StringBuilder output = new StringBuilder(direction + " line:\n");
-        for (int i = 0; i < 15; i++) {
-            for (Card card : Cell.cells[dir][i].getCardsInCell()) {
-                output.append("row ").append(i + 1).append(": ").append(card).append("\n");
-            }
-        }
-        return output.toString();
-    }
-
-    public int cardsToPlay(String username) {
-        User user = getUserByUsername(username);
-        return user.getCardsToPlay();
-    }
 
     public int movesLeft(String username) {
         User user = getUserByUsername(username);
         return user.getMovesLeft();
     }
 
-    public Troop getTroopFromCell(String username, String lineDirection, int row) {
-        int dir = convertDirectionToInt(lineDirection);
-        for (Card card : Cell.cells[dir][row - 1].getCardsInCell()) {
-            if (card instanceof Troop && card.getOwner().getUsername().equals(username)) {
-                return (Troop) card;
-            }
-        }
-        return null;
+
+    public void getWinner(String username1, String username2) {
     }
 
-    public void moveTroop(String username, String lineDirection, int row, String direction) {
-        int dir = convertDirectionToInt(lineDirection);
-        int finalRow = direction.equals("upward") ? row + 1 : row - 1;
-        Troop troop = getTroopFromCell(username, lineDirection, row);
-        Cell.cells[dir][row - 1].removeTroop(troop);
-        Cell.cells[dir][finalRow - 1].addCard(troop);
-        getUserByUsername(username).decreaseMovesLeft();
-    }
-
-    public void deployCard(String username, String cardName, String lineDirection, int row) {
-        int dir = convertDirectionToInt(lineDirection);
-        User user = getUserByUsername(username);
-        Card card;
-        if (cardName.equals("Heal")) {
-            card = new Spell("Heal", user);
-        } else {
-            card = new Troop(cardName, user);
-        }
-        Cell.cells[dir][row - 1].addCard(card);
-        user.decreaseCardsToPlay();
-    }
-
-    public int getCastleHitPoint(String username, String lineDirection) {
-        User user = getUserByUsername(username);
-        return user.getCastleHitPoint(lineDirection);
-    }
-
-    public void doFireball(String myUsername, String opponentUsername, String lineDirection) {
-        User oppUser = getUserByUsername(opponentUsername);
-        oppUser.decreaseCastleHitPoint(lineDirection, 1400);
-        User user = getUserByUsername(myUsername);
-        user.decreaseCardsToPlay();
-    }
-
-    public String getWinner(String username1, String username2) {
-        User user1 = getUserByUsername(username1);
-        User user2 = getUserByUsername(username2);
-        int winner = makeWinner(user1, user2);
-        switch (winner) {
-            case 2:
-                return username2;
-            case 1:
-                return username1;
-        }
-        return null;
-    }
-
-    public void attack(String username1, String username2) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 15; j++) {
-                Cell.cells[i][j].attackInCell();
-            }
-        }
-        for (int i = 0; i < 3; i++) {
-            Cell.cells[i][0].attackToCastle(getUserByUsername(username1), i);
-            Cell.cells[i][14].attackToCastle(getUserByUsername(username2), i);
-        }
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 15; j++) {
-                Cell.cells[i][j].heal();
-            }
-        }
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 15; j++) {
-                Cell.cells[i][j].removeDeaths();
-            }
-        }
-    }
-
-    public String getWinner2(String username1, String username2) {
-        User user1 = getUserByUsername(username1);
-        User user2 = getUserByUsername(username2);
-        int points1 = user1.getCastleHitPoint("left")
-                + user1.getCastleHitPoint("middle")
-                + user1.getCastleHitPoint("right");
-        int points2 = user2.getCastleHitPoint("left")
-                + user2.getCastleHitPoint("middle")
-                + user2.getCastleHitPoint("right");
-        if (points2 > points1) return username2;
-        if (points1 > points2) return username1;
-        return null;
-    }
-
-    public void makeLevelAndExperienceAndGold(String username1, String username2) {
-        User user1 = getUserByUsername(username1);
-        User user2 = getUserByUsername(username2);
-        user1.makeExperince();
-        user2.makeExperince();
-        addGold(user1, user2);
-        addGold(user2, user1);
-    }
-
-    public void reassignMovesAndCards(String username) {
-        User user = getUserByUsername(username);
-        user.reassignMovesAndCards();
-    }
 }

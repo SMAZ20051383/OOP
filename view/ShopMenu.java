@@ -33,16 +33,7 @@ public class ShopMenu {
 
 
     private String buyCard(Matcher matcher) {
-        if (controller.isCardNameWrong(matcher.group("cardName"))) {
-            return "Invalid card name!";
-        } else if (!controller.isGoldEnough(currentUsername, matcher.group("cardName"))) {
-            return "Not enough gold to buy " + matcher.group("cardName") + "!";
-        } else if (controller.getCardFromCards(currentUsername, matcher.group("cardName")) != null) {
-            return "You have this card!";
-        } else {
-            controller.buyCard(currentUsername, matcher.group("cardName"));
-            return "Card " + matcher.group("cardName") + " bought successfully!";
-        }
+        return "1";
     }
 
     private String sellCard(Matcher matcher) {

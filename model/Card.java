@@ -15,13 +15,6 @@ public abstract class Card {
         return name;
     }
 
-    public User getOwner() {
-        return owner;
-    }
-
-    public int getPower() {
-        return power;
-    }
 
 
     @Override

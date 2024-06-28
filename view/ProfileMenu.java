@@ -53,9 +53,8 @@ public class ProfileMenu {
             return "Invalid card name!";
         } else if (controller.getCardFromDeck(currentUsername, matcher.group("cardName")) == null) {
             return "This card isn't in your battle deck!";
-        } else if (controller.getSizeOfDeck(currentUsername) == 1) {
-            return "Invalid action: your battle deck will be empty!";
-        } else {
+        }
+         else {
             controller.removeFromDeck(currentUsername, matcher.group("cardName"));
             return "Card " + matcher.group("cardName") + " removed successfully!";
         }
@@ -68,9 +67,7 @@ public class ProfileMenu {
             return "You don't have this card!";
         } else if (controller.getCardFromDeck(currentUsername, matcher.group("cardName")) != null) {
             return "This card is already in your battle deck!";
-        } else if (controller.getSizeOfDeck(currentUsername) == 4) {
-            return "Invalid action: your battle deck is full!";
-        } else {
+        }  else {
             controller.addToDeck(currentUsername, matcher.group("cardName"));
             return "Card " + matcher.group("cardName") + " added successfully!";
         }

@@ -13,17 +13,10 @@ public class User {
     private int gold = 80;
     private int experience = 0;
     private int level = 1;
-    private Castle leftCastle;
-    private Castle middleCastle;
-    private Castle rightCastle;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        Troop troop = new Troop("Archer", this);
-        Spell spell = new Spell("Fireball", this);
-        cards.add(troop); battleDeck.add(troop);
-        cards.add(spell); battleDeck.add(spell);
     }
 
     public static ArrayList<User> getUsers() {
@@ -74,31 +67,6 @@ public class User {
         return movesLeft;
     }
 
-    public Castle getLeftCastle() {
-        return leftCastle;
-    }
-
-    public Castle getMiddleCastle() {
-        return middleCastle;
-    }
-
-    public Castle getRightCastle() {
-        return rightCastle;
-    }
-
-
-    public void makeExperince() {
-        int x = leftCastle.getHitPoint();
-        if (x != -1) experience += x;
-        x = rightCastle.getHitPoint();
-        if (x != -1) experience += x;
-        x = middleCastle.getHitPoint();
-        if (x != -1) experience += x;
-        while (experience > level * level * 150) {
-            experience -= level * level * 150;
-            level++;
-        }
-    }
 
     public boolean isPasswordWrong(String password) {
         return !this.password.equals(password);
@@ -146,15 +114,6 @@ public class User {
 
     public void addToCard(String cardName) {
         switch (cardName) {
-            case "Fireball":
-            case "Heal":
-                cards.add(new Spell(cardName, this));
-                break;
-            case "Archer":
-            case "Dragon":
-            case "Wizard":
-                cards.add(new Troop(cardName, this));
-                break;
         }
     }
 
@@ -162,37 +121,8 @@ public class User {
         cards.remove(card);
     }
 
-    public void BuildCastles() {
-        leftCastle = new Castle(2200, level);
-        rightCastle = new Castle(2200, level);
-        middleCastle = new Castle(3400, level);
-    }
 
-    public int getCastleHitPoint(String place) {
-        switch (place) {
-            case "left":
-                return leftCastle.getHitPoint();
-            case "middle":
-                return middleCastle.getHitPoint();
-            case "right":
-                return rightCastle.getHitPoint();
-        }
-        return 0;
-    }
 
-    public void decreaseCastleHitPoint(String place, int amount) {
-        switch (place) {
-            case "left":
-                leftCastle.decreaseHitPoint(amount);
-                break;
-            case "middle":
-                middleCastle.decreaseHitPoint(amount);
-                break;
-            case "right":
-                rightCastle.decreaseHitPoint(amount);
-                break;
-        }
-    }
 
     @Override
     public boolean equals(Object obj) {
