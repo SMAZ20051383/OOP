@@ -33,7 +33,7 @@ public class ShopMenu {
 
 
     private String buyCard(Matcher matcher) {
-        return "1";
+        return "1"; // باید نوشته بشه
     }
 
     private String sellCard(Matcher matcher) {

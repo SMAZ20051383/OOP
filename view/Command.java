@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public enum Command {
     SHOW_CURRENT_MENU("show current menu"),
     REGISTER("register username (?<username>.+) password (?<password>.*\\S)"),
-    LOGIN("login username (?<username>.+) password (?<password>.*\\S)"),
+    LOGIN("user login -u (?<username>.+) -p (?<password>.*\\S)"),
     EXIT("Exit"),
     LOGOUT("logout"),
     LIST_OF_USERS("list of users"),
