@@ -8,15 +8,20 @@ public class User {
     private final ArrayList<Card> cards = new ArrayList<>();
     private final ArrayList<Card> battleDeck = new ArrayList<>();
     private String password;
+    private String Nikname;
+    private String Email;
     private int cardsToPlay = 1;
     private int movesLeft = 3;
     private int gold = 80;
     private int experience = 0;
     private int level = 1;
+    private  int HP;
 
-    public User(String username, String password) {
+    public User(String username, String password , String nikname , String email) {
         this.username = username;
         this.password = password;
+        this.Nikname = nikname;
+        this.Email = email;
     }
 
     public static ArrayList<User> getUsers() {
@@ -25,6 +30,9 @@ public class User {
 
     public static void addUser(User user) {
         allUsers.add(user);
+    }
+    public void setHP(int HP){
+        this.HP=HP;
     }
 
     public void decreaseCardsToPlay() {
@@ -58,6 +66,7 @@ public class User {
     public int getGold() {
         return gold;
     }
+    public int getHP() {return  HP;}
 
     public int getCardsToPlay() {
         return cardsToPlay;

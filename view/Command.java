@@ -232,7 +232,7 @@ public enum Command {
                     "*****\n"
     ),
     SHOW_CURRENT_MENU("show current menu"),
-    REGISTER("register username (?<username>.+) password (?<password>.*\\S)"),
+    REGISTER("register -u (?<username>.+) -p (?<password>.+) (?<password confirmation>.+) –email (?<email>.+) -n (?<nickname>.*\\S)" ),
     LOGIN("user login -u (?<username>.+) -p (?<password>.*\\S)"),
     EXIT("Exit"),
     LOGOUT("logout"),

@@ -20,8 +20,8 @@ public class Controller {
         return null;
     }
 
-    public void register(String username, String pass) {
-        User.addUser(new User(username, pass));
+    public void register(String username, String pass , String nikname , String email) {
+        User.addUser(new User(username, pass , nikname , email));
     }
 
     public boolean passwordIsWrong(String username, String password) {
@@ -30,14 +30,15 @@ public class Controller {
     }
 
     public boolean passwordFormatIsBad(String pass) {
-        return pass.length() < 8
-                || pass.length() > 20
-                || !pass.matches(".*[a-z]+.*")
-                || !pass.matches(".*[A-Z]+.*")
-                || !pass.matches(".*\\d+.*")
-                || !pass.matches("\\S+")
-                || pass.matches("\\d.+")
-                || !pass.matches(".*[!@#$%^&*]+.*");
+        return pass.length() < 8;
+    }
+    public boolean passwordFormatIsBad2(String password) {
+        return  !password.matches(".*[a-z].*")
+                || !password.matches(".*[A-Z].*")
+                ||!password.matches(".*[^a-zA-Z0-9].*");
+    }
+    public boolean emailFormatIsBad2(String email) {
+        return !email.matches("^[^@]+@[^@]+\\.com$");
     }
 
     public String listOfUsers() {
