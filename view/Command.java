@@ -231,43 +231,56 @@ public enum Command {
                     " *   \n" +
                     "*****\n"
     ),
-    SHOW_CURRENT_MENU("show current menu"),
-    REGISTER("register username (?<username>.+) password (?<password>.*\\S)"),
-    LOGIN("user login -u (?<username>.+) -p (?<password>.*\\S)"),
-    EXIT("Exit"),
-    LOGOUT("logout"),
-    LIST_OF_USERS("list of users"),
-    SCOREBOARD("scoreboard"),
-    PROFILE_MENU("profile menu"),
-    SHOP_MENU("shop menu"),
-    START_GAME("start game turns count (?<turnsCount>-?\\d+) username (?<username>\\S+)"),
-    BACK("back"),
-    CHANGE_PASSWORD("change password old password (?<oldPassword>.+) new password (?<newPassword>.*\\S)"),
-    INFO("Info"),
-    REMOVE_FROM_DECK("remove from battle deck (?<cardName>.*\\S)"),
-    ADD_TO_DECK("add to battle deck (?<cardName>.*\\S)"),
-    SHOW_DECK("show battle deck"),
-    BUY_CARD("buy card (?<cardName>.*\\S)"),
-    SELL_CARD("sell card (?<cardName>.*\\S)"),
-    SHOW_OPPONENT_CASTLE_HIT_POINT("show the hitpoints left of my opponent"),
-    SHOW_LINE_INFO("show line info (?<direction>.*\\S)"),
-    CARDS_TO_PLAY("number of cards to play"),
-    MOVES_LEFT("number of moves left"),
-    MOVE_TROOP("move troop in line (?<lineDirection>.+) and row (?<rowNumber>-?\\d+) (?<direction>.*\\S)"),
-    DEPLOY_TROOP("deploy troop (?<troopName>.+) in line (?<lineDirection>.+) and row (?<rowNumber>-?\\d+)"),
-    DEPLOY_HEAL("deploy spell Heal in line (?<lineDirection>.+) and row (?<rowNumber>-?\\d+)"),
-    DEPLOY_FIREBALL("deploy spell Fireball in line (?<lineDirection>.*\\S)"),
-    NEXT_TURN("next turn"),
-
+    SHOW_CURRENT_MENU("show current menu", ""),
+    REGISTER("register username (?<username>.+) password (?<password>.*\\S)", ""),
+    LOGIN("user login -u (?<username>.+) -p (?<password>.*\\S)", ""),
+    EXIT("Exit", ""),
+    LOGOUT("logout", ""),
+    LIST_OF_USERS("list of users", ""),
+    SCOREBOARD("scoreboard", ""),
+    PROFILE_MENU("profile menu", ""),
+    SHOP_MENU("shop menu", ""),
+    START_GAME("start game turns count (?<turnsCount>-?\\d+) username (?<username>\\S+)", ""),
+    BACK("back", ""),
+    CHANGE_PASSWORD("change password old password (?<oldPassword>.+) new password (?<newPassword>.*\\S)", ""),
+    INFO("Info", ""),
+    REMOVE_FROM_DECK("remove from battle deck (?<cardName>.*\\S)", ""),
+    ADD_TO_DECK("add to battle deck (?<cardName>.*\\S)", ""),
+    SHOW_DECK("show battle deck", ""),
+    BUY_CARD("buy card (?<cardName>.*\\S)", ""),
+    SELL_CARD("sell card (?<cardName>.*\\S)", ""),
+    SHOW_OPPONENT_CASTLE_HIT_POINT("show the hitpoints left of my opponent", ""),
+    SHOW_LINE_INFO("show line info (?<direction>.*\\S)", ""),
+    CARDS_TO_PLAY("number of cards to play", ""),
+    MOVES_LEFT("number of moves left", ""),
+    MOVE_TROOP("move troop in line (?<lineDirection>.+) and row (?<rowNumber>-?\\d+) (?<direction>.*\\S)", ""),
+    DEPLOY_TROOP("deploy troop (?<troopName>.+) in line (?<lineDirection>.+) and row (?<rowNumber>-?\\d+)", ""),
+    DEPLOY_HEAL("deploy spell Heal in line (?<lineDirection>.+) and row (?<rowNumber>-?\\d+)", ""),
+    DEPLOY_FIREBALL("deploy spell Fireball in line (?<lineDirection>.*\\S)", ""),
+    NEXT_TURN("next turn", ""),
     ;
 
+    private final String art;
     private final String regex;
 
-    Command(String regex) {
+    Command(String art) {
+        this.art = art;
+        this.regex = null;
+    }
+
+    Command(String regex, String placeholder) {
         this.regex = regex;
+        this.art = null;
+    }
+
+    public String getArt() {
+        return this.art;
     }
 
     public static Matcher getMatcher(String input, Command command) {
+        if (command.regex == null) {
+            return null;
+        }
         Matcher matcher = Pattern.compile(command.regex).matcher(input);
         return matcher.matches() ? matcher : null;
     }
