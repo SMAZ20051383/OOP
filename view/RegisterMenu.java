@@ -14,6 +14,7 @@ import java.util.regex.Matcher;
 public class RegisterMenu {
     private Controller controller;
 
+
     public void run(Controller controller) {
         this.controller = controller;
         Scanner scanner = new Scanner(System.in);
@@ -65,14 +66,22 @@ public class RegisterMenu {
     }
 
     private String register(Matcher matcher) {
-        if (!matcher.group("username").matches("[a-zA-Z]+")) {
+        if (matcher.group("username").matches("^$")) {
+            return "Incorrect format for user  empty!";
+        } else if (matcher.group("password").matches("^$")){
+            return "Incorrect format for password empty!";
+        }else if (!matcher.group("username").matches("[a-zA-Z]+")) {
             return "Incorrect format for username!";
-        } else if (controller.passwordFormatIsBad(matcher.group("password"))) {
-            return "Incorrect format for password!";
-        } else if (controller.getUserByUsername(matcher.group("username")) != null) {
+        }else if (controller.getUserByUsername(matcher.group("username")) != null) {
             return "Username already exists!";
+        }else if (controller.passwordFormatIsBad(matcher.group("password"))){
+            return "Password format is incorrect for length";
+        }else if (controller.passwordFormatIsBad2(matcher.group("password"))){
+            return "Password format is incorrect for structur";
+        }else if (controller.emailFormatIsBad2(matcher.group("email"))){
+            return "Email format is incorrect";
         } else {
-            controller.register(matcher.group("username"), matcher.group("password"));
+            controller.register(matcher.group("username"), matcher.group("password"), matcher.group("nikname"), matcher.group("email") );
             return "User " + matcher.group("username") + " created successfully!";
         }
     }
