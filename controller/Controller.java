@@ -9,7 +9,10 @@ public class Controller {
 
 
 
+
+
     public void run() {
+//        User.allUsers = SqlController.getAllUsers(Card.cards);
         new RegisterMenu().run(this);
     }
 

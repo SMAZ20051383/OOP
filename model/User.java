@@ -1,27 +1,43 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class User {
-    private static final ArrayList<User> allUsers = new ArrayList<>();
+    public static ArrayList<User> allUsers ;
     private final String username;
     private final ArrayList<Card> cards = new ArrayList<>();
-    private final ArrayList<Card> battleDeck = new ArrayList<>();
+    private  ArrayList<Card> battleDeck;
     private String password;
     private String Nikname;
     private String Email;
     private int cardsToPlay = 1;
     private int movesLeft = 3;
-    private int gold = 80;
-    private int experience = 0;
-    private int level = 1;
-    private  int HP;
+    private int gold;
+    private int experience;
+    private int level;
+    private int HP;
+    private Map<String, String> securityQuestion;
 
-    public User(String username, String password , String nikname , String email) {
+    public User(String username, String password, String nikname, String email, Map<String, String> securityQuestion, ArrayList<Card> battleDeck, int level, int HP, int experience, int gold) {
         this.username = username;
         this.password = password;
         this.Nikname = nikname;
         this.Email = email;
+        this.securityQuestion = securityQuestion;
+        this.battleDeck = battleDeck;
+        this.level = level;
+        this.HP = HP;
+        this.experience = experience;
+        this.gold = gold;
+
+        allUsers.add(this);
+    }
+    public User(String username , String password , String nikname , String email){
+        this.username = username ;
+        this.password = password ;
+        this.Nikname = nikname ;
+        this.Email = email ;
     }
 
     public static ArrayList<User> getUsers() {

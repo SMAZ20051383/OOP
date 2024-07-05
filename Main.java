@@ -1,66 +1,55 @@
+import controller.Controller;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Main {
     public static void main(String[] args) {
         String url = "jdbc:sqlite:mydatabase.db";
 
-        // SQL statement for creating a new table
-        String createTableSQL = "CREATE TABLE IF NOT EXISTS users (\n"
-                + "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-                + "    username TEXT NOT NULL,\n"
-                + "    password TEXT NOT NULL,\n"
-                + "    nickname TEXT NOT NULL,\n"
-                + "    security_question TEXT,\n"
-                + "    email TEXT,\n"
-                + "    level INTEGER,\n"
-                + "    hp INTEGER,\n"
-                + "    xp INTEGER,\n"
-                + "    coin INTEGER,\n"
-                + "    cards INTEGER\n"
-                + ");";
+        try (Connection conn = DriverManager.getConnection(url)) {
+            if (conn != null) {
+                // Create tables
+                try (Statement stmt = conn.createStatement()) {
+                    String createUsersTableSQL = "CREATE TABLE IF NOT EXISTS users (\n"
+                            + "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                            + "    username TEXT NOT NULL,\n"
+                            + "    password TEXT NOT NULL,\n"
+                            + "    nickname TEXT NOT NULL,\n"
+                            + "    email TEXT,\n"
+                            + "    level INTEGER,\n"
+                            + "    hp INTEGER,\n"
+                            + "    xp INTEGER,\n"
+                            + "    coin INTEGER\n"
+                            + ");";
+                    String createUserCardsTableSQL = "CREATE TABLE IF NOT EXISTS user_cards (\n"
+                            + "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                            + "    user_id INTEGER NOT NULL,\n"
+                            + "    card_name TEXT NOT NULL,\n"
+                            + "    FOREIGN KEY (user_id) REFERENCES users (id)\n"
+                            + ");";
+                    String createUserSecurityQuestionsTableSQL = "CREATE TABLE IF NOT EXISTS user_security_questions (\n"
+                            + "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                            + "    user_id INTEGER NOT NULL,\n"
+                            + "    question TEXT NOT NULL,\n"
+                            + "    answer TEXT NOT NULL,\n"
+                            + "    FOREIGN KEY (user_id) REFERENCES users (id)\n"
+                            + ");";
 
-        try (Connection conn = DriverManager.getConnection(url);
-             Statement stmt = conn.createStatement()) {
-            stmt.execute(createTableSQL);
-            System.out.println("Table 'users' has been created.");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+                    stmt.execute(createUsersTableSQL);
+                    stmt.execute(createUserCardsTableSQL);
+                    stmt.execute(createUserSecurityQuestionsTableSQL);
 
-        // User details
-        String username = "john_doe";
-        String password = "secret_password";
-        String nickname = "John";
-        String securityQuestion = "What is your favorite color?";
-        String email = "john.doe@example.com";
-        int level = 5;
-        int hp = 100;
-        int xp = 5000;
-        int cards = 10;
-
-        // SQL statement for inserting a new user
-        String insertSQL = "INSERT INTO users(username, password, nickname, security_question, email, level, hp, xp, cards) VALUES(?,?,?,?,?,?,?,?,?)";
-
-        try (Connection conn = DriverManager.getConnection(url);
-             PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
-
-            // Set the parameters
-            pstmt.setString(1, username);
-            pstmt.setString(2, password);
-            pstmt.setString(3, nickname);
-            pstmt.setString(4, securityQuestion);
-            pstmt.setString(5, email);
-            pstmt.setInt(6, level);
-            pstmt.setInt(7, hp);
-            pstmt.setInt(8, xp);
-            pstmt.setInt(9, cards);
-
-            // Execute the insert statement
-            int rowsInserted = pstmt.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("A new user was inserted successfully!");
+                    System.out.println("Tables created successfully.");
+                    new Controller().run();                }
             }
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
