@@ -27,12 +27,12 @@ public class Kapcha {
 
     public String ascii_art_kapcha() {
         String ans = "";
-        Map<Character, Command> artMap = new HashMap<>();
+        Map<Character, Command_kapcha> artMap = new HashMap<>();
         for (int i = 1; i <= 9; i++) {
-            artMap.put(Character.forDigit(i, 10), Command.values()[i - 1]);
+            artMap.put(Character.forDigit(i, 10), Command_kapcha.values()[i - 1]);
         }
         for (int i = 0; i < 26; i++) {
-            artMap.put((char) ('A' + i), Command.values()[9 + i]);
+            artMap.put((char) ('A' + i), Command_kapcha.values()[9 + i]);
         }
 
         Random random = new Random();
@@ -45,7 +45,7 @@ public class Kapcha {
             lines[i] = new StringBuilder();
         }
         for (char c : ans.toCharArray()) {
-            Command art = artMap.get(c);
+            Command_kapcha art = artMap.get(c);
             if (art != null) {
                 String[] artLines = art.getArt().split("\n");
                 for (int i = 0; i < 5; i++) {

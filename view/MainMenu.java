@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+import model.User;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -8,14 +9,23 @@ import java.util.regex.Matcher;
 public class MainMenu {
     private Controller controller;
 
-    public void run(Scanner scanner, Controller controller, String username) {
+    public void run(Scanner scanner, Controller controller, User user) {
         this.controller = controller;
         String input;
         Matcher matcher;
         while (true) {
+            System.out.println("--------------------------------------");
+            System.out.println("you are now in MainMenu");
+            System.out.println("for see your profile enter: profile menu");
+            System.out.println("for Start play game enter: go to game");
+            System.out.println("for show cards enter: show cards");
+            System.out.println("for go to shop enter: shop menu");
+            System.out.println("for logout enter: logout");
+            System.out.println("for see history enter: history");
+            System.out.println("--------------------------------------");
             input = scanner.nextLine();
             if ((matcher = Command.getMatcher(input, Command.LOGOUT)) != null) {
-                System.out.println("User " + username + " logged out successfully!");
+                System.out.println("User " + user.getUsername() + " logged out successfully!");
                 break;
             } else if ((matcher = Command.getMatcher(input, Command.SHOW_CURRENT_MENU)) != null) {
                 System.out.println("Main Menu");
@@ -25,36 +35,43 @@ public class MainMenu {
                 System.out.print(controller.scoreboard());
             } else if ((matcher = Command.getMatcher(input, Command.PROFILE_MENU)) != null) {
                 System.out.println("Entered profile menu!");
-                new ProfileMenu().run(scanner, controller, username);
-            } else if ((matcher = Command.getMatcher(input, Command.SHOP_MENU)) != null) {
+                new ProfileMenu().run(scanner, controller, user);
+            }
+            else if ((matcher = Command.getMatcher(input, Command.SHOP_MENU)) != null) {
                 System.out.println("Entered shop menu!");
-                new ShopMenu().run(scanner, controller, username);
-            } else if ((matcher = Command.getMatcher(input, Command.START_GAME)) != null) {
-                String result = startGame(matcher);
-                System.out.println(result);
-                if (result.matches("Battle.+")) {
-                    new GameMenu().run(scanner,
-                            controller,
-                            username,
-                            matcher.group("username"),
-                            Integer.parseInt(matcher.group("turnsCount")));
-                }
+                new ShopMenu().run(scanner, controller, user.getUsername());
+            }
+            else if ((matcher = Command.getMatcher(input, Command.HISTORY)) != null) {
+                System.out.println("Entered history menu!");
+                new HistoryMenu().run(user);
+            }
+            else if ((matcher = Command.getMatcher(input, Command.START_GAME)) != null) {
+                    boolean is_true = true ;
+                    while (is_true){
+                        System.out.println("choose mode of game");
+                        System.out.println("1- Two player game");
+                        System.out.println("2-Betting game");
+                        input =scanner.nextLine();
+                        switch (input){
+                            case "1":
+                                new GameMenu().run(scanner, controller, user , 1);
+                                //1 for two player
+                                is_true = false ;
+                                break;
+                            case "2":
+                                new GameMenu().run(scanner, controller, user, 2);
+                                //2 for betting game
+                                is_true =false ;
+                                break;
+                            default:
+                                System.out.println("invalid");
+                                break;
+                        }
+                    }
             } else {
                 System.out.println("Invalid command!");
             }
         }
     }
 
-    private String startGame(Matcher matcher) {
-        int turns = Integer.parseInt(matcher.group("turnsCount"));
-        if (turns < 5 || turns > 30) {
-            return "Invalid turns count!";
-        } else if (!matcher.group("username").matches("[a-zA-Z]+")) {
-            return "Incorrect format for username!";
-        } else if (controller.getUserByUsername(matcher.group("username")) == null) {
-            return "Username doesn't exist!";
-        } else {
-            return "Battle started with user " + matcher.group("username");
-        }
-    }
 }

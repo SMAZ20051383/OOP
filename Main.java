@@ -1,10 +1,4 @@
 import controller.Controller;
-
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -48,7 +42,8 @@ public class Main {
                     stmt.execute(createUserSecurityQuestionsTableSQL);
 
                     System.out.println("Tables created successfully.");
-                    new Controller().run();                }
+                    new Controller().run();
+                }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

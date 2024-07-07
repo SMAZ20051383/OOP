@@ -1,30 +1,33 @@
 package model;
 
+import controller.SqlController;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class User {
-    public static ArrayList<User> allUsers ;
-    private final String username;
+    public static ArrayList<User> allUsers = new ArrayList<>() ;
+    private  String username;
     private final ArrayList<Card> cards = new ArrayList<>();
     private  ArrayList<Card> battleDeck;
     private String password;
-    private String Nikname;
+    private String Nickname;
     private String Email;
     private int cardsToPlay = 1;
     private int movesLeft = 3;
-    private int gold;
+    private int gold = 50;
     private int experience;
-    private int level;
-    private int HP;
-    private Map<String, String> securityQuestion;
-
-    public User(String username, String password, String nikname, String email, Map<String, String> securityQuestion, ArrayList<Card> battleDeck, int level, int HP, int experience, int gold) {
+    private int level=1;
+    private int HP = 100;
+    private String[] securityQuestion = new String[2] ;
+    public User(String username, String password, String nikname, String email, String[] securityQuestion, ArrayList<Card> battleDeck, int level, int HP, int experience, int gold) {
         this.username = username;
         this.password = password;
-        this.Nikname = nikname;
+        this.Nickname = nikname;
         this.Email = email;
-        this.securityQuestion = securityQuestion;
+        this.securityQuestion[0]=securityQuestion[0];
+        this.securityQuestion[1]=securityQuestion[1];
         this.battleDeck = battleDeck;
         this.level = level;
         this.HP = HP;
@@ -36,8 +39,10 @@ public class User {
     public User(String username , String password , String nikname , String email){
         this.username = username ;
         this.password = password ;
-        this.Nikname = nikname ;
+        this.Nickname = nikname ;
         this.Email = email ;
+        SqlController.insertUser(this);
+        SqlController.updateUser(this);
     }
 
     public static ArrayList<User> getUsers() {
@@ -49,14 +54,17 @@ public class User {
     }
     public void setHP(int HP){
         this.HP=HP;
+        SqlController.updateUser(this);
     }
 
     public void decreaseCardsToPlay() {
         cardsToPlay--;
+        SqlController.updateUser(this);
     }
 
     public void decreaseMovesLeft() {
         movesLeft--;
+        SqlController.updateUser(this);
     }
 
     public String getUsername() {
@@ -73,6 +81,7 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+        SqlController.updateUser(this);
     }
 
     public ArrayList<Card> getBattleDeck() {
@@ -106,6 +115,7 @@ public class User {
 
     public void removeFromDeck(Card card) {
         battleDeck.remove(card);
+        SqlController.updateUser(this);
     }
 
 
@@ -130,11 +140,16 @@ public class User {
                 "\npassword: " + password +
                 "\nlevel: " + level +
                 "\nexperience: " + experience +
-                "\ngold: " + gold;
+                "\ncoin: " + gold+
+                "\nemail: " + Email+
+                "\nnickname: "+Nickname+
+                "\nHP: "+HP+
+                "\nXP: "+experience;
     }
 
     public void changeGold(int amount) {
         gold += amount;
+        SqlController.updateUser(this);
     }
 
     public void addToCard(String cardName) {
@@ -144,10 +159,32 @@ public class User {
 
     public void removeFromCard(Card card) {
         cards.remove(card);
+        SqlController.updateUser(this);
     }
 
+    public String getPassword() {
+        return password;
+    }
 
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
 
+    public static ArrayList<User> getAllUsers() {
+        return allUsers;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public String getNickname() {
+        return Nickname;
+    }
+
+    public String[] getSecurityQuestion() {
+        return securityQuestion;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -156,10 +193,32 @@ public class User {
 
     public void addGold(int amount) {
         gold += amount;
+        SqlController.updateUser(this);
     }
 
     public void reassignMovesAndCards() {
         cardsToPlay = 1;
         movesLeft = 3;
+    }
+
+    public void setSecurityQuestion(String[] securityQuestion) {
+        this.securityQuestion = securityQuestion;
+        SqlController.updateUser(this);
+    }
+
+    public void setUsername(String username) {
+        int Id = SqlController.getUserID(this.username);
+        this.username = username;
+        SqlController.updateUsername(Id,this.username);
+    }
+
+    public void setNickname(String nickname) {
+        this.Nickname = nickname;
+        SqlController.updateUser(this);
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+        SqlController.updateUser(this);
     }
 }

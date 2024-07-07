@@ -4,235 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum Command {
-    number_1("  *  \n" +
-            "  *  \n" +
-            "  *  \n" +
-            "  *  \n" +
-            "*****\n"),
-    number_2("*****\n" +
-            "    *\n" +
-            "*****\n" +
-            "*    \n" +
-            "*****\n"),
-    number_3("*****\n" +
-            "    *\n" +
-            "*****\n" +
-            "    *\n" +
-            "*****\n"),
-    number_4("*   *\n" +
-            "*   *\n" +
-            "*****\n" +
-            "    *\n" +
-            "    *\n"),
-    number_5("*****\n" +
-            "*    \n" +
-            "*****\n" +
-            "    *\n" +
-            "*****\n"),
-    number_6("*****\n" +
-            "*    \n" +
-            "*****\n" +
-            "*   *\n" +
-            "*****\n"),
-    number_7("*****\n" +
-            "    *\n" +
-            "    *\n" +
-            "    *\n" +
-            "    *\n"),
-    number_8("*****\n" +
-            "*   *\n" +
-            "*****\n" +
-            "*   *\n" +
-            "*****\n"),
-    number_9("*****\n" +
-            "*   *\n" +
-            "*****\n" +
-            "    *\n" +
-            "*****\n"),
-    LETTER_A(
-            "  *  \n" +
-                    " * * \n" +
-                    "*****\n" +
-                    "*   *\n" +
-                    "*   *\n"
-    ),
-    LETTER_B(
-            "**** \n" +
-                    "*   *\n" +
-                    "**** \n" +
-                    "*   *\n" +
-                    "**** \n"
-    ),
-    LETTER_C(
-            "*****\n" +
-                    "*    \n" +
-                    "*    \n" +
-                    "*    \n" +
-                    "*****\n"
-    ),
-    LETTER_D(
-            "**** \n" +
-                    "*   *\n" +
-                    "*   *\n" +
-                    "*   *\n" +
-                    "**** \n"
-    ),
-    LETTER_E(
-            "*****\n" +
-                    "*    \n" +
-                    "*****\n" +
-                    "*    \n" +
-                    "*****\n"
-    ),
-    LETTER_F(
-            "*****\n" +
-                    "*    \n" +
-                    "*****\n" +
-                    "*    \n" +
-                    "*    \n"
-    ),
-    LETTER_G(
-            "*****\n" +
-                    "*    \n" +
-                    "* ***\n" +
-                    "*   *\n" +
-                    "*****\n"
-    ),
-    LETTER_H(
-            "*   *\n" +
-                    "*   *\n" +
-                    "*****\n" +
-                    "*   *\n" +
-                    "*   *\n"
-    ),
-    LETTER_I(
-            "*****\n" +
-                    "  *  \n" +
-                    "  *  \n" +
-                    "  *  \n" +
-                    "*****\n"
-    ),
-    LETTER_J(
-            "*****\n" +
-                    "   * \n" +
-                    "   * \n" +
-                    "*  * \n" +
-                    "**** \n"
-    ),
-    LETTER_K(
-            "*   *\n" +
-                    "*  * \n" +
-                    "***  \n" +
-                    "*  * \n" +
-                    "*   *\n"
-    ),
-    LETTER_L(
-            "*    \n" +
-                    "*    \n" +
-                    "*    \n" +
-                    "*    \n" +
-                    "*****\n"
-    ),
-    LETTER_M(
-            "*   *\n" +
-                    "** **\n" +
-                    "* * *\n" +
-                    "*   *\n" +
-                    "*   *\n"
-    ),
-    LETTER_N(
-            "*   *\n" +
-                    "**  *\n" +
-                    "* * *\n" +
-                    "*  **\n" +
-                    "*   *\n"
-    ),
-    LETTER_O(
-            "*****\n" +
-                    "*   *\n" +
-                    "*   *\n" +
-                    "*   *\n" +
-                    "*****\n"
-    ),
-    LETTER_P(
-            "*****\n" +
-                    "*   *\n" +
-                    "*****\n" +
-                    "*    \n" +
-                    "*    \n"
-    ),
-    LETTER_Q(
-            "*****\n" +
-                    "*   *\n" +
-                    "*   *\n" +
-                    "*  **\n" +
-                    "*****\n"
-    ),
-    LETTER_R(
-            "*****\n" +
-                    "*   *\n" +
-                    "*****\n" +
-                    "*  * \n" +
-                    "*   *\n"
-    ),
-    LETTER_S(
-            "*****\n" +
-                    "*    \n" +
-                    "*****\n" +
-                    "    *\n" +
-                    "*****\n"
-    ),
-    LETTER_T(
-            "*****\n" +
-                    "  *  \n" +
-                    "  *  \n" +
-                    "  *  \n" +
-                    "  *  \n"
-    ),
-    LETTER_U(
-            "*   *\n" +
-                    "*   *\n" +
-                    "*   *\n" +
-                    "*   *\n" +
-                    "*****\n"
-    ),
-    LETTER_V(
-            "*   *\n" +
-                    "*   *\n" +
-                    "*   *\n" +
-                    " * * \n" +
-                    "  *  \n"
-    ),
-    LETTER_W(
-            "*   *\n" +
-                    "*   *\n" +
-                    "* * *\n" +
-                    "** **\n" +
-                    "*   *\n"
-    ),
-    LETTER_X(
-            "*   *\n" +
-                    " * * \n" +
-                    "  *  \n" +
-                    " * * \n" +
-                    "*   *\n"
-    ),
-    LETTER_Y(
-            "*   *\n" +
-                    " * * \n" +
-                    "  *  \n" +
-                    "  *  \n" +
-                    "  *  \n"
-    ),
-    LETTER_Z(
-            "*****\n" +
-                    "   * \n" +
-                    "  *  \n" +
-                    " *   \n" +
-                    "*****\n"
-    ),
     SHOW_CURRENT_MENU("show current menu"),
-    REGISTER("register -u (?<username>.+) -p (?<password>.+) (?<password confirmation>.+) –email (?<email>.+) -n (?<nickname>.*\\S)" ),
+    REGISTER("register -u (?<username>.+) -p (?<password>.+) (?<passwordConfirmation>.*) -email (?<email>.+) -n (?<nickname>.*\\S)"),
     LOGIN("user login -u (?<username>.+) -p (?<password>.*\\S)"),
     EXIT("Exit"),
     LOGOUT("logout"),
@@ -240,10 +13,10 @@ public enum Command {
     SCOREBOARD("scoreboard"),
     PROFILE_MENU("profile menu"),
     SHOP_MENU("shop menu"),
-    START_GAME("start game turns count (?<turnsCount>-?\\d+) username (?<username>\\S+)"),
+    START_GAME("go to game"),
     BACK("back"),
-    CHANGE_PASSWORD("change password old password (?<oldPassword>.+) new password (?<newPassword>.*\\S)"),
-    INFO("Info"),
+    CHANGE_PASSWORD("profile change password -o (?<oldPassword>.+) -n (?<newPassword>.+)"),
+    INFO("Show information"),
     REMOVE_FROM_DECK("remove from battle deck (?<cardName>.*\\S)"),
     ADD_TO_DECK("add to battle deck (?<cardName>.*\\S)"),
     SHOW_DECK("show battle deck"),
@@ -258,30 +31,20 @@ public enum Command {
     DEPLOY_HEAL("deploy spell Heal in line (?<lineDirection>.+) and row (?<rowNumber>-?\\d+)"),
     DEPLOY_FIREBALL("deploy spell Fireball in line (?<lineDirection>.*\\S)"),
     NEXT_TURN("next turn"),
-
+    Forget_password("Forgot my password -u (?<username>.+)"),
+    Change_username("Profile change -u (?<username>.+)"),
+    Change_nickname("Profile change -n (?<nickname>.+)"),
+    Change_Email("profile change -e (?<email>.+)"),
+    HISTORY("history")
     ;
 
-    private final String art;
     private final String regex;
 
-    Command(String art) {
-        this.art = art;
-        this.regex = null;
-    }
-
-    Command(String regex, String placeholder) {
+    Command(String regex) {
         this.regex = regex;
-        this.art = null;
-    }
-
-    public String getArt() {
-        return this.art;
     }
 
     public static Matcher getMatcher(String input, Command command) {
-        if (command.regex == null) {
-            return null;
-        }
         Matcher matcher = Pattern.compile(command.regex).matcher(input);
         return matcher.matches() ? matcher : null;
     }

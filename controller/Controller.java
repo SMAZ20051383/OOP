@@ -1,9 +1,11 @@
 package controller;
 
 import model.*;
+import view.Command;
 import view.RegisterMenu;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Controller {
 
@@ -12,11 +14,17 @@ public class Controller {
 
 
     public void run() {
-//        User.allUsers = SqlController.getAllUsers(Card.cards);
+        User.allUsers = SqlController.getAllUsers(Card.cards);
+        System.out.println("for login enter: user login -u (?<username>.+) -p (?<password>.*\\S)");
+        System.out.println("for signin enter: register -u (?<username>.+) -p (?<password>.+) (?<passwordConfirmation>.*) -email (?<email>.+) -n (?<nickname>.*\\S)");
+        System.out.println("for random password enter random in username and one space in password confirmation");
+        System.out.println("for forget password enter : Forgot my password -u (?<username>.+)");
         new RegisterMenu().run(this);
     }
-
-    public User getUserByUsername(String username) {
+    public User enter_second_player(String username , String password){
+        return null ;
+    }
+    public static User getUserByUsername(String username) {
         for (User user : User.getUsers()) {
             if (user.getUsername().equals(username)) return user;
         }
@@ -27,7 +35,7 @@ public class Controller {
         User.addUser(new User(username, pass , nikname , email));
     }
 
-    public boolean passwordIsWrong(String username, String password) {
+    public static boolean passwordIsWrong(String username, String password) {
         User user = getUserByUsername(username);
         return user.isPasswordWrong(password);
     }
@@ -103,6 +111,18 @@ public class Controller {
     public void changePassword(String username, String password) {
         User user = getUserByUsername(username);
         user.setPassword(password);
+    }
+    public void changeUsername(String username , String new_username){
+        User user = getUserByUsername(username);
+        user.setUsername(new_username);
+    }
+    public void changeNickname(String username , String nickname){
+        User user = getUserByUsername(username);
+        user.setNickname(nickname);
+    }
+    public void changeEmail(String username , String Email){
+        User user = getUserByUsername(username);
+        user.setEmail(Email);
     }
 
     public int getRankByUsername(String username) {
