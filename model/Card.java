@@ -13,6 +13,24 @@ public abstract class Card {
         this.name = name;
         this.cost = cost;
     }
+    public static ArrayList<Card> getAvailableCards(User user) {
+        ArrayList<Card> availableCards = new ArrayList<>();
+        for (Card card : cards) {
+            if (!user.getCards().contains(card)) {
+                availableCards.add(card);
+            }
+        }
+        return availableCards;
+    }
+    public static ArrayList<Card> getUpgradableCards(User user) {
+        ArrayList<Card> upgradableCards = new ArrayList<>();
+        for (Card card : user.getCards()) {
+            if (card instanceof Upgradable) {
+                upgradableCards.add(card);
+            }
+        }
+        return upgradableCards;
+    }
 
     public String getName() {
         return name;
@@ -32,7 +50,11 @@ public abstract class Card {
 
     public abstract void play(User player, User opponent);
 }
+interface Upgradable {
+    int getUpgradeCost();
 
+    void upgrade(User user);
+}
 class ShieldCard extends Card {
     public ShieldCard(String name, int cost) {
         super(name, cost);

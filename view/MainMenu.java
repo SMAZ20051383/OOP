@@ -39,7 +39,7 @@ public class MainMenu {
             }
             else if ((matcher = Command.getMatcher(input, Command.SHOP_MENU)) != null) {
                 System.out.println("Entered shop menu!");
-                new ShopMenu().run(scanner, controller, user.getUsername());
+                new ShopMenu((scanner, controller, user.getUsername());
             }
             else if ((matcher = Command.getMatcher(input, Command.HISTORY)) != null) {
                 System.out.println("Entered history menu!");
