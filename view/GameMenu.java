@@ -49,7 +49,36 @@ public class GameMenu {
             }
         }
     }
-    public void two_player_game(Controller controller , User user_1 , User user_2){}
-    public void betting_game(Controller controller , User user_1 , User user_2){}
+    public User two_player_game(Controller controller , User user_1 , User user_2){
+        return null ;
+    }
+    public void betting_game(Controller controller , User user_1 , User user_2){
+        Scanner scanner = new Scanner(System.in);
+        int number = 0 ;
+        while (true){
+            System.out.println("enter coin:");
+            String input = scanner.nextLine();
+             number = Integer.parseInt(input);
+            if(user_1.getGold()>=number && user_2.getGold()>=number){
+                user_1.changeGold(-1*number);
+                user_2.changeGold(-1*number);
+                System.out.println("decrease succssful");
+                break;
+            }
+            else if ( user_1.getGold()<number) {
+                System.out.println("user1 hasnot enough");
+            }
+            else if(user_2.getGold()<number){
+                System.out.println("user2 hasnot enough");
+            }
+        }
+        User user = two_player_game(controller,user_1,user_2);
+        if(user_1.getUsername().equals(user.getUsername())){
+            user_1.changeGold(2*number);
+        }
+        else {
+            user_2.changeGold(2*number);
+        }
+    }
 
 }

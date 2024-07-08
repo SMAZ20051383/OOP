@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+import model.Admin;
 import model.User;
 
 import java.security.SecureRandom;
@@ -18,6 +19,13 @@ public class RegisterMenu {
         String input;
         Matcher matcher;
         while (true) {
+            System.out.println("--------------------------------------");
+            System.out.println("for login enter: user login -u (?<username>.+) -p (?<password>.*\\S)");
+            System.out.println("for signin enter: register -u (?<username>.+) -p (?<password>.+) (?<passwordConfirmation>.*) -email (?<email>.+) -n (?<nickname>.*\\S)");
+            System.out.println("for random password enter random in username and one space in password confirmation");
+            System.out.println("for forget password enter : Forgot my password -u (?<username>.+)");
+            System.out.println("for admin login : Login admin (?<password>.+)");
+            System.out.println("--------------------------------------");
             input = scanner.nextLine();
             if ((matcher = Command.getMatcher(input, Command.EXIT)) != null) {
                 break;
@@ -27,9 +35,13 @@ public class RegisterMenu {
             else if ((matcher = Command.getMatcher(input, Command.Forget_password)) != null) {
                 change_password_from_forgetpassword(matcher.group("username"));
             }
+            else if ((matcher = Command.getMatcher(input, Command.Admin_login)) != null) {
+                admin_account(matcher);
+            }
             else if ((matcher = Command.getMatcher(input, Command.REGISTER)) != null) {
                 System.out.println(register(matcher));
-            } else if ((matcher = Command.getMatcher(input, Command.LOGIN)) != null) {
+            }
+            else if ((matcher = Command.getMatcher(input, Command.LOGIN)) != null) {
                 boolean result = login(matcher);
                 if (result) {
                     // User logged in successfully, proceed to main menu
@@ -230,5 +242,17 @@ public class RegisterMenu {
         else {
             System.out.println("wrong answer . please try again");
         }
+    }
+    private boolean admin_account(Matcher matcher){
+        if (Admin.password.equals(matcher.group("password"))) {
+            System.out.println("admin logged in successfully!");
+            Admin.run();
+            return true;
+        }
+        else {
+            System.out.println("Password is incorrect");
+            return false;
+        }
+
     }
 }

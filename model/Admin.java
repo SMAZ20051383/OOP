@@ -4,26 +4,29 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Admin {
-    private static ArrayList<Card> allCards = new ArrayList<>();
+    public static String password = "1234";
 
-    public static void login(Scanner scanner) {
-        System.out.print("Enter admin password: ");
-        String password = scanner.nextLine();
-        if (password.equals("admin_pass")) {
-            showMenu(scanner);
-        } else {
-            System.out.println("Incorrect password.");
-        }
+    public static void run() {
+
+        CardDatabase cardDatabase = new CardDatabase();
+        Card.cards = CardDatabase.getAllCards(); // بارگیری کارت‌ها از دیتابیس
+        showMenu();
     }
 
-    private static void showMenu(Scanner scanner) {
+    private static void showMenu() {
+        Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
         while (isRunning) {
+            System.out.println("--------------------------------------");
+            System.out.println("Admin menu");
             System.out.println("1. Add Card");
             System.out.println("2. Edit Card");
             System.out.println("3. Delete Card");
             System.out.println("4. View All Players");
             System.out.println("5. Exit");
+            System.out.println("6. show all cards name");
+            System.out.println("--------------------------------------");
+
             int choice = Integer.parseInt(scanner.nextLine());
 
             switch (choice) {
@@ -41,6 +44,9 @@ public class Admin {
                     break;
                 case 5:
                     isRunning = false;
+                    break;
+                case 6:
+                    print_all_cards();
                     break;
                 default:
                     System.out.println("Invalid choice.");
@@ -71,7 +77,8 @@ public class Admin {
             int costUpgrade = Integer.parseInt(scanner.nextLine());
 
             Card card = new NormalCard(name, cost, attack, defense, duration, damagePlayer, levelUpgrade, costUpgrade);
-            allCards.add(card);
+            Card.cards.add(card);
+            CardDatabase.addCard(card); // ذخیره کارت در دیتابیس
         } else {
             System.out.println("Enter the type of special card:");
             System.out.println("1. Shield");
@@ -125,7 +132,7 @@ public class Admin {
             }
 
             if (card != null) {
-                allCards.add(card);
+                Card.cards.add(card);
             }
         }
 
@@ -169,6 +176,7 @@ public class Admin {
             normalCard.setCostUpgrade(costUpgrade);
         }
 
+        CardDatabase.updateCard(card); // به‌روزرسانی کارت در دیتابیس
         System.out.println("Card edited successfully.");
     }
 
@@ -182,23 +190,29 @@ public class Admin {
             return;
         }
 
-        allCards.remove(card);
+        Card.cards.remove(card);
+        CardDatabase.deleteCard(name); // حذف کارت از دیتابیس
         System.out.println("Card deleted successfully.");
     }
 
     private static void viewAllPlayers() {
         for (User user : User.getAllUsers()) {
             System.out.println(user);
+            System.out.println("-----------------");
         }
     }
 
     private static Card getCardByName(String name) {
-        for (Card card : allCards) {
+        for (Card card : Card.cards) {
             if (card.getName().equals(name)) {
                 return card;
             }
         }
         return null;
     }
+    private static void print_all_cards(){
+        for(Card card : Card.cards){
+            System.out.println(card.getName());
+        }
+    }
 }
-

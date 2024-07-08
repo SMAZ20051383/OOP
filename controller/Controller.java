@@ -15,10 +15,6 @@ public class Controller {
 
     public void run() {
         User.allUsers = SqlController.getAllUsers(Card.cards);
-        System.out.println("for login enter: user login -u (?<username>.+) -p (?<password>.*\\S)");
-        System.out.println("for signin enter: register -u (?<username>.+) -p (?<password>.+) (?<passwordConfirmation>.*) -email (?<email>.+) -n (?<nickname>.*\\S)");
-        System.out.println("for random password enter random in username and one space in password confirmation");
-        System.out.println("for forget password enter : Forgot my password -u (?<username>.+)");
         new RegisterMenu().run(this);
     }
     public User enter_second_player(String username , String password){
