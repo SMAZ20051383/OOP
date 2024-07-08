@@ -1,5 +1,7 @@
 package model;
 
+import controller.Controller;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -33,11 +35,11 @@ public class ShopMenu {
 
     private static void buyCards(User user) {
         ArrayList<Card> availableCards = Card.getAvailableCards(user);
-        System.out.println("\nAvailable Cards for Purchase:");
+        System.out.println(" Available Cards for Purchase:");
         for (Card card : availableCards) {
             System.out.println("Name: " + card.getName() + ", Cost: " + card.getCost());
         }
-        System.out.print("\nEnter the name of the card you want to buy (or 'back' to return): ");
+        System.out.print("Enter the name of the card you want to buy (or 'back' to return): ");
         String cardName = scanner.nextLine();
 
         if (cardName.equalsIgnoreCase("back")) {
@@ -60,7 +62,7 @@ public class ShopMenu {
         }
 
         if (user.getGold() >= selectedCard.getCost()) {
-            user.addToCard(selectedCard);
+            user.cards.add(selectedCard);
             user.changeGold(-selectedCard.getCost());
             System.out.println("Congratulations! You've successfully bought the card: " + selectedCard.getName());
         } else {

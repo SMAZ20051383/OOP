@@ -9,7 +9,7 @@ import java.util.Map;
 public class User {
     public static ArrayList<User> allUsers = new ArrayList<>() ;
     private  String username;
-    private final ArrayList<Card> cards = new ArrayList<>();
+    public ArrayList<Card> cards = new ArrayList<>();
     private  ArrayList<Card> battleDeck;
     private String password;
     private String Nickname;

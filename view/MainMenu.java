@@ -1,8 +1,14 @@
 package view;
 
 import controller.Controller;
+import model.Card;
+import model.CardDatabase;
+import model.ShopMenu;
 import model.User;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -13,7 +19,16 @@ public class MainMenu {
         this.controller = controller;
         String input;
         Matcher matcher;
+        if(user.cards.size()==0){
+            int number = CardDatabase.getNumberOfCards()-1;
+            List<Integer> random_numbers = selectRandomNumbers(number);
+            for(int i = 0 ; i<3 ;i++){
+                user.cards.add(CardDatabase.getCardByIndex(random_numbers.get(i)));
+            }
+            System.out.println("20 cards add successfully to your cards");
+        }
         while (true) {
+
             System.out.println("--------------------------------------");
             System.out.println("you are now in MainMenu");
             System.out.println("for see your profile enter: profile menu");
@@ -39,11 +54,17 @@ public class MainMenu {
             }
             else if ((matcher = Command.getMatcher(input, Command.SHOP_MENU)) != null) {
                 System.out.println("Entered shop menu!");
-                new ShopMenu((scanner, controller, user.getUsername());
+                new ShopMenu().showGameStore(user);
+            }
+            else if ((matcher = Command.getMatcher(input, Command.Show_cards)) != null) {
+                for(Card card:user.cards){
+                    System.out.print("card name: ");
+                    System.out.println(card.getName());
+                }
             }
             else if ((matcher = Command.getMatcher(input, Command.HISTORY)) != null) {
                 System.out.println("Entered history menu!");
-                new HistoryMenu().run(user);
+                new HistoryMenu();
             }
             else if ((matcher = Command.getMatcher(input, Command.START_GAME)) != null) {
                     boolean is_true = true ;
@@ -73,5 +94,20 @@ public class MainMenu {
             }
         }
     }
+    public static List<Integer> selectRandomNumbers(int n) {
+        List<Integer> selectedNumbers = new ArrayList<>();
 
+        // اضافه کردن اعداد به لیست
+        for (int i = 1; i <= n; i++) {
+            selectedNumbers.add(i);
+        }
+
+        // تصادفی کردن اعضای لیست
+        Collections.shuffle(selectedNumbers);
+
+        // انتخاب اعداد
+        List<Integer> result = selectedNumbers.subList(0, Math.min(20, n));
+
+        return result;
+    }
 }

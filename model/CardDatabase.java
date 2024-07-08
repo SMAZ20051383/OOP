@@ -17,7 +17,7 @@ public class CardDatabase {
     }
 
 
-    private void createCardTable() {
+    private static void createCardTable() {
         // SQL statement to create the cards table if not exists
         String sql = "CREATE TABLE IF NOT EXISTS cards (" +
                 "name TEXT PRIMARY KEY, " +
@@ -165,5 +165,73 @@ public class CardDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public static int getNumberOfCards() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) AS count FROM cards";
+
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (rs.next()) {
+                count = rs.getInt("count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+    public static Card getCardByIndex(int index) {
+        Card card = null;
+        String sql = "SELECT * FROM cards LIMIT 1 OFFSET ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, index - 1);  // index - 1 برای تطابق با شماره‌گذاری صفرباز
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String name = rs.getString("name");
+                    int cost = rs.getInt("cost");
+                    int attack = rs.getInt("attack");
+                    int defense = rs.getInt("defense");
+                    int duration = rs.getInt("duration");
+                    int damagePlayer = rs.getInt("damagePlayer");
+                    int levelUpgrade = rs.getInt("levelUpgrade");
+                    int costUpgrade = rs.getInt("costUpgrade");
+
+                    // بررسی نوع کارت بر اساس ویژگی‌های آن
+                    if (attack == 0 && defense == 0 && duration == 0 && damagePlayer == 0 && levelUpgrade == 0 && costUpgrade == 0) {
+                        if (name.contains("Shield")) {
+                            card = new ShieldCard(name, cost);
+                        } else if (name.contains("Heal")) {
+                            card = new HealCard(name, cost, 0);
+                        } else if (name.contains("Power Boost")) {
+                            card = new PowerBoostCard(name, cost);
+                        } else if (name.contains("Change Hole Location")) {
+                            card = new ChangeHoleLocationCard(name, cost);
+                        } else if (name.contains("Repair")) {
+                            card = new RepairCard(name, cost);
+                        } else if (name.contains("Reduce Round")) {
+                            card = new ReduceRoundCard(name, cost);
+                        } else if (name.contains("Steal")) {
+                            card = new StealCard(name, cost);
+                        } else if (name.contains("Weaken Opponent")) {
+                            card = new WeakenOpponentCard(name, cost);
+                        } else if (name.contains("Duplicate")) {
+                            card = new DuplicateCard(name, cost);
+                        } else if (name.contains("Hide Opponent Cards")) {
+                            card = new HideOpponentCardsCard(name, cost);
+                        }
+                    } else {
+                        card = new NormalCard(name, cost, attack, defense, duration, damagePlayer, levelUpgrade, costUpgrade);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return card;
     }
 }

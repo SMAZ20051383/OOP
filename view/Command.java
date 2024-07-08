@@ -36,7 +36,8 @@ public enum Command {
     Change_nickname("Profile change -n (?<nickname>.+)"),
     Change_Email("profile change -e (?<email>.+)"),
     HISTORY("history"),
-    Admin_login("Login admin (?<password>.+)")
+    Admin_login("Login admin (?<password>.+)"),
+    Show_cards("show cards")
     ;
 
     private final String regex;

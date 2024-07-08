@@ -1,4 +1,8 @@
 import controller.Controller;
+import model.Card;
+import model.CardDatabase;
+import view.HistoryMenu;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -42,6 +46,9 @@ public class Main {
                     stmt.execute(createUserSecurityQuestionsTableSQL);
 
                     System.out.println("Tables created successfully.");
+                    CardDatabase cardDatabase = new CardDatabase();
+                    Card.cards = CardDatabase.getAllCards() ;
+                    HistoryMenu.addTestData();
                     new Controller().run();
                 }
             }

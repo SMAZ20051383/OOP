@@ -7,9 +7,6 @@ public class Admin {
     public static String password = "1234";
 
     public static void run() {
-
-        CardDatabase cardDatabase = new CardDatabase();
-        Card.cards = CardDatabase.getAllCards(); // بارگیری کارت‌ها از دیتابیس
         showMenu();
     }
 
