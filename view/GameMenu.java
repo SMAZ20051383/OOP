@@ -79,9 +79,10 @@ public class GameMenu {
 
     private Character selectCharacter(User user) {
         // Simulate character selection (you can implement your logic here)
-        Character character = new Character("Default Character", "Default Card");
+       // Character character = new Character("Default Character", "Default Card");
         // Replace with your character selection logic based on user's choice or default
-        return character;
+      //  return character;
+        return null;
     }
 
     private void initializePlayerBoard(int[][] board) {
@@ -140,8 +141,8 @@ public class GameMenu {
 
         // Update board with card details
         for (int i = startPosition; i < startPosition + duration; i++) {
-            currentBoard[i][0] += currentCharacter.cards.get(cardIndex).getPlayerDamage(); // Update damagePlayer
-            currentBoard[i][1] += currentCharacter.getAttack(); // Update attack
+           // currentBoard[i][0] += currentCharacter.cards.get(cardIndex).getPlayerDamage(); // Update damagePlayer
+            //currentBoard[i][1] += currentCharacter.getAttack(); // Update attack
         }
 
         System.out.println("Card placed successfully.");

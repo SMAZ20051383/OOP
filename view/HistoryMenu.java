@@ -80,60 +80,58 @@ public class HistoryMenu {
                 String input = scanner.nextLine();
                 switch (input){
                     case "1":
-                        System.out.println("1.صعودی");
-                        System.out.println("2.نزولی");
-                        input = scanner.nextLine();
-                        switch (input){
-                            case "1":
-                                break;
-                            case "2":
-                                break;
-                        }
+                        System.out.println("1. Ascending");
+                        System.out.println("2. Descending");
+                        String sortOrderDate = scanner.nextLine().trim();
+                        Comparator<String[]> comparatorDate = (a, b) -> {
+                            if (sortOrderDate.equals("1")) {
+                                return a[0].compareTo(b[0]); // Sort by Date ascending
+                            } else {
+                                return b[0].compareTo(a[0]); // Sort by Date descending
+                            }
+                        };
+                        Collections.sort(scores, comparatorDate);
                         break;
                     case "2":
-                        System.out.println("1.صعودی");
-                        System.out.println("2.نزولی");
-                        input = scanner.nextLine();
-                        switch (input){
-                            case "1":
-                                break;
-                            case "2":
-                                break;
-                        }
+                        System.out.println("1. Ascending");
+                        System.out.println("2. Descending");
+                        String sortOrderWinLose = scanner.nextLine().trim();
+                        Comparator<String[]> comparatorWinLose = (a, b) -> {
+                            // Assuming score[5] contains "Win" or "Lose"
+                            if (sortOrderWinLose.equals("1")) {
+                                return a[5].compareTo(b[5]); // Sort by Win/Lose ascending
+                            } else {
+                                return b[5].compareTo(a[5]); // Sort by Win/Lose descending
+                            }
+                        };
+                        Collections.sort(scores, comparatorWinLose);
                         break;
                     case "3":
-                        System.out.println("1.صعودی");
-                        System.out.println("2.نزولی");
-                        input = scanner.nextLine();
-                        switch (input){
-                            case "1":
-                                break;
-                            case "2":
-                                break;
-                        }
+                        System.out.println("1. Ascending");
+                        System.out.println("2. Descending");
+                        String sortOrderOpponentName = scanner.nextLine().trim();
+                        Comparator<String[]> comparatorOpponentName = (a, b) -> {
+                            return sortOrderOpponentName.equals("1") ? a[3].compareTo(b[3]) : b[3].compareTo(a[3]);
+                        };
+                        Collections.sort(scores, comparatorOpponentName);
                         break;
-                    case "4":
-                        System.out.println("1.صعودی");
-                        System.out.println("2.نزولی");
-                        input = scanner.nextLine();
-                        switch (input){
-                            case "1":
-                                break;
-                            case "2":
-                                break;
-                        }
+                    case "4": // Sort by Opponent Level
+                        System.out.println("1. Ascending");
+                        System.out.println("2. Descending");
+                        String sortOrderOpponentLevel = scanner.nextLine().trim();
+                        Comparator<String[]> comparatorOpponentLevel = (a, b) -> {
+                            int levelA = Integer.parseInt(a[4]);
+                            int levelB = Integer.parseInt(b[4]);
+                            if (sortOrderOpponentLevel.equals("1")) {
+                                return Integer.compare(levelA, levelB); // Ascending order
+                            } else {
+                                return Integer.compare(levelB, levelA); // Descending order
+                            }
+                        };
+                        Collections.sort(scores, comparatorOpponentLevel);
                         break;
-                    case "5":
-                        System.out.println("1.صعودی");
-                        System.out.println("2.نزولی");
-                        input = scanner.nextLine();
-                        switch (input){
-                            case "1":
-                                break;
-                            case "2":
-                                break;
-                        }
-                        break;
+
+
                 }
             }
             else {

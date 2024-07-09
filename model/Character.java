@@ -39,11 +39,11 @@ public class Character {
     private static List<Card> generateDefaultCards() {
         // Assume default cards are predefined or generated somehow
         List<Card> defaultCards = new ArrayList<>();
-        defaultCards.add(new Card("Card 1", CardType.HEALING, 0, 0, 0));
+       /* defaultCards.add(new Card("Card 1", CardType.HEALING, 0, 0, 0));
         defaultCards.add(new Card("Card 2", CardType.DAMAGE, 10, 5, 2));
         defaultCards.add(new Card("Card 3", CardType.SPELL, 0, 0, 3));
         defaultCards.add(new Card("Card 4", CardType.ATTACK, 15, 0, 1));
-        defaultCards.add(new Card("Card 5", CardType.DEFENSE, 0, 10, 0));
+        defaultCards.add(new Card("Card 5", CardType.DEFENSE, 0, 10, 0));*/
         return defaultCards;
     }
 }
