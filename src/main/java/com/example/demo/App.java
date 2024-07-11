@@ -71,7 +71,7 @@ public class App extends Application {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Shop.fxml"));
         primaryStage.setTitle("Login");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

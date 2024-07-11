@@ -29,10 +29,19 @@ public abstract class Card {
     private String name;
     protected int power;
     private int cost;
+    private int level;
 
     public Card(String name, int cost) {
         this.name = name;
         this.cost = cost;
+        this.level = 1;
+    }
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
     public abstract int  getDamage();
     public abstract int getAttack();
@@ -76,7 +85,7 @@ public abstract class Card {
 }
 interface Upgradable {
     int getUpgradeCost();
-
+    int getRequiredLevel();
     void upgrade(User user);
 }
 class ShieldCard extends Card {
