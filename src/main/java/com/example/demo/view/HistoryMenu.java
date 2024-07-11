@@ -1,16 +1,25 @@
 package com.example.demo.view;
 
+import com.example.demo.controller.Controller;
 import com.example.demo.controller.GameScoreDatabase;
+import com.example.demo.model.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class HistoryMenu {
+    public User user ;
 
     @FXML
     private TableView<String[]> scoreTable;
@@ -81,7 +90,14 @@ public class HistoryMenu {
     }
 
     @FXML
-    private void back() {
-        // Add your back button action here
+    public void back(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo/Main_Menu.fxml"));
+        Parent root = loader.load();
+        MainMenu controller = loader.getController();
+        controller.setUser(Controller.getUserByUsername(user.getUsername()));
+        controller.update();
+        Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+
     }
 }

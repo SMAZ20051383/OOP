@@ -5,7 +5,16 @@ import com.example.demo.model.Card;
 import com.example.demo.model.CardDatabase;
 import com.example.demo.model.ShopMenu;
 import com.example.demo.model.User;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,6 +23,7 @@ import java.util.regex.Matcher;
 
 public class MainMenu {
     private Controller controller;
+    public User user ;
     public static void setCard(User user){
         if(user.cards.size()==0){
             int number = CardDatabase.getNumberOfCards()-1;
@@ -24,7 +34,57 @@ public class MainMenu {
             System.out.println("20 cards add successfully to your cards");
         }
     }
-    public void run(Scanner scanner, Controller controller, User user) {
+    public void update(){
+        CoinGet.setText(String.valueOf(user.getGold()));
+        XPGet.setText(String.valueOf(user.getExperience()));
+        HPGet.setText(String.valueOf(user.getHP()));
+        LevelGet.setText(String.valueOf(user.getLevel()));
+        Name.setText(user.getUsername());
+    }
+    @FXML
+    private Label CoinGet ;
+    @FXML
+    private Label XPGet ;
+    @FXML
+    private Label HPGet ;
+
+    @FXML
+    private Label LevelGet ;
+    @FXML
+    private Label Name ;
+    public void Game_Start_MainMenu(MouseEvent event) {
+    }
+    @FXML
+    public void Log_out(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo/Login.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    }
+    @FXML
+    public void Setting(MouseEvent event) {
+    }
+    @FXML
+    public void Profil(MouseEvent event) {
+    }
+    @FXML
+    public void Shop(ActionEvent actionEvent) {
+    }
+    @FXML
+    public void Game_History(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo/Historymenu.fxml"));
+        Parent root = loader.load();
+        HistoryMenu controller = loader.getController();
+        controller.user = user ;
+        Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    }
+    public void run(Scanner scanner, Controller controller, User user_1) {
+        this.user = user_1 ;
         this.controller = controller;
         String input;
         Matcher matcher;
@@ -113,5 +173,9 @@ public class MainMenu {
         List<Integer> result = selectedNumbers.subList(0, Math.min(20, n));
 
         return result;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -15,7 +15,7 @@ public class User {
     private int cardsToPlay = 1;
     private int movesLeft = 3;
     private int gold = 50;
-    private int experience;
+    private int experience = 0;
     private int level=1;
     private int HP = 300;
     private String[] securityQuestion = new String[2] ;

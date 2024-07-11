@@ -4,18 +4,22 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.view.MainMenu">
    <children>
-      <Button fx:id="Game_Start_MainMenu" layoutX="281.0" layoutY="44.0" mnemonicParsing="false" onAction="#Game_Start_MainMenu" onMouseClicked="#Game_Start_MainMenu" prefHeight="26.0" prefWidth="371.0" text="Game_Start" />
-      <Button fx:id="Log_out" layoutX="281.0" layoutY="264.0" mnemonicParsing="false" onAction="#Log_out" onMouseClicked="#Log_out" prefHeight="26.0" prefWidth="371.0" text="Log_out" />
-      <Button fx:id="Setting" layoutX="281.0" layoutY="220.0" mnemonicParsing="false" onAction="#Setting" onMouseClicked="#Setting" prefHeight="26.0" prefWidth="371.0" text="Setting" />
-      <Button fx:id="Profil" layoutX="281.0" layoutY="172.0" mnemonicParsing="false" onAction="#Profil" onMouseClicked="#Profil" prefHeight="26.0" prefWidth="371.0" text="Profil" />
+      <Button fx:id="Game_Start_MainMenu" layoutX="281.0" layoutY="44.0" mnemonicParsing="false" onMouseClicked="#Game_Start_MainMenu" prefHeight="26.0" prefWidth="371.0" text="Game_Start" />
+      <Button fx:id="Log_out" layoutX="281.0" layoutY="264.0" mnemonicParsing="false" onMouseClicked="#Log_out" prefHeight="26.0" prefWidth="371.0" text="Log_out" />
+      <Button fx:id="Setting" layoutX="281.0" layoutY="220.0" mnemonicParsing="false" onMouseClicked="#Setting" prefHeight="26.0" prefWidth="371.0" text="Setting" />
+      <Button fx:id="Profil" layoutX="281.0" layoutY="172.0" mnemonicParsing="false" onMouseClicked="#Profil" prefHeight="26.0" prefWidth="371.0" text="Profil" />
       <Button fx:id="Shop" layoutX="281.0" layoutY="127.0" mnemonicParsing="false" onAction="#Shop" onMouseClicked="#Shop" prefHeight="26.0" prefWidth="371.0" text="Shop" />
       <Button fx:id="Game_History" layoutX="281.0" layoutY="84.0" mnemonicParsing="false" onAction="#Game_History" onMouseClicked="#Game_History" prefHeight="26.0" prefWidth="371.0" text="Game_History" />
-      <Label fx:id="coins" layoutX="35.0" layoutY="331.0" prefHeight="18.0" prefWidth="620.0" text="coins :" />
-      <Label fx:id="XP" layoutX="35.0" layoutY="447.0" prefHeight="18.0" prefWidth="620.0" text="XP :" />
-      <Label fx:id="HP" layoutX="35.0" layoutY="409.0" prefHeight="18.0" prefWidth="620.0" text="HP :" />
-      <Label fx:id="Level" layoutX="35.0" layoutY="370.0" prefHeight="18.0" prefWidth="620.0" text="Level :" />
+      <Label fx:id="coins" layoutX="35.0" layoutY="331.0" prefHeight="18.0" prefWidth="39.0" text="coins :" />
+      <Label fx:id="XP" layoutX="35.0" layoutY="447.0" prefHeight="18.0" prefWidth="31.0" text="XP :" />
+      <Label fx:id="HP" layoutX="35.0" layoutY="409.0" prefHeight="18.0" prefWidth="31.0" text="HP :" />
+      <Label fx:id="Level" layoutX="35.0" layoutY="370.0" prefHeight="18.0" prefWidth="45.0" text="Level :" />
+      <Label fx:id="CoinGet" layoutX="91.0" layoutY="332.0" prefHeight="17.0" prefWidth="60.0" />
+      <Label fx:id="XPGet" layoutX="100.0" layoutY="448.0" prefHeight="17.0" prefWidth="60.0" />
+      <Label fx:id="HPGet" layoutX="100.0" layoutY="410.0" prefHeight="17.0" prefWidth="60.0" />
+      <Label fx:id="LevelGet" layoutX="100.0" layoutY="371.0" prefHeight="17.0" prefWidth="60.0" />
+      <Label fx:id="Name" layoutX="27.0" layoutY="31.0" prefHeight="52.0" prefWidth="106.0" text="Label" />
    </children>
 </AnchorPane>

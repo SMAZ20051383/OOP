@@ -2,10 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Card;
 import com.example.demo.model.User;
-import com.example.demo.view.RegisterMenu;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Controller {
 
@@ -14,8 +12,8 @@ public class Controller {
 
 
     public void run() {
-//        User.allUsers = Controller.SqlController.getAllUsers(Card.cards);
-        new RegisterMenu().run(this);
+        User.allUsers = SqlController.getAllUsers(Card.cards);
+//        new RegisterMenu().run(this);
     }
     public User enter_second_player(String username , String password){
         return null ;
@@ -36,10 +34,10 @@ public class Controller {
         return user.isPasswordWrong(password);
     }
 
-    public boolean passwordFormatIsBad(String pass) {
+    public static boolean passwordFormatIsBad(String pass) {
         return pass.length() < 8;
     }
-    public boolean passwordFormatIsBad2(String password) {
+    public static boolean passwordFormatIsBad2(String password) {
         return  !password.matches(".*[a-z].*")
                 || !password.matches(".*[A-Z].*")
                 ||!password.matches(".*[^a-zA-Z0-9].*");

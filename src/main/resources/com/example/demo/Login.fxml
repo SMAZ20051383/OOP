@@ -5,7 +5,6 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="669.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.view.RegisterMenu">
    <children>
@@ -13,7 +12,9 @@
       <Label layoutX="297.0" layoutY="51.0" prefHeight="18.0" prefWidth="76.0" text="LOGIN MENU" />
       <PasswordField fx:id="passwordLogin" layoutX="259.0" layoutY="178.0" />
       <TextField fx:id="username" layoutX="260.0" layoutY="122.0" />
-      <VBox prefHeight="200.0" prefWidth="100.0" />
-      <Button fx:id="rememberPassword" layoutX="270.0" layoutY="344.0" mnemonicParsing="false" onAction="#rememberPassword" text="Remember_password" />
+      <Button fx:id="rememberPassword" layoutX="270.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#rememberPassword" text="Remember_password" />
+      <Label fx:id="LoginEror" layoutX="219.0" layoutY="298.0" prefHeight="33.0" prefWidth="232.0" text="result" />
+      <Label fx:id="countdownLabel" layoutX="243.0" layoutY="229.0" prefHeight="17.0" prefWidth="181.0" text="" />
+      <Button fx:id="register" layoutX="517.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#register" text="register" />
    </children>
 </AnchorPane>
