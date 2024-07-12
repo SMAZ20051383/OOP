@@ -1,5 +1,6 @@
 package com.example.demo.view;
 
+import com.example.demo.Setting_Menu;
 import com.example.demo.controller.Controller;
 import com.example.demo.model.Card;
 import com.example.demo.model.CardDatabase;
@@ -10,10 +11,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +29,9 @@ import java.util.regex.Matcher;
 
 public class MainMenu {
     private Controller controller;
-    public User user ;
+    private MediaPlayer mediaPlayer;
+    public static User user ;
+    public static User user_2 = null ;
     public static void setCard(User user){
         if(user.cards.size()==0){
             int number = CardDatabase.getNumberOfCards()-1;
@@ -39,8 +47,11 @@ public class MainMenu {
         XPGet.setText(String.valueOf(user.getExperience()));
         HPGet.setText(String.valueOf(user.getHP()));
         LevelGet.setText(String.valueOf(user.getLevel()));
-        Name.setText(user.getUsername());
+        Name.setText("WELCOME "+ user.getUsername());
+        playBackgroundMusic("Hans Zimmer - Mountains (320).mp3");
+
     }
+    public Color color ;
     @FXML
     private Label CoinGet ;
     @FXML
@@ -52,10 +63,37 @@ public class MainMenu {
     private Label LevelGet ;
     @FXML
     private Label Name ;
-    public void Game_Start_MainMenu(MouseEvent event) {
+    public static void runGame(ActionEvent event) throws IOException {
+        if (user_2 != null) {
+            System.out.println(user_2.getUsername());
+            FXMLLoader loader = new FXMLLoader(MainMenu.class.getResource("/com/example/demo/chooseGame.fxml"));
+            Parent root = loader.load();
+            ChooseGameController controller = loader.getController();
+            controller.setUser_2(user_2);
+            controller.setUser_1(user);
+            controller.initialize_1();
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+    }
+
+    @FXML
+    public void Game_Start_MainMenu(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo/Login.fxml"));
+        Parent root = loader.load();
+        RegisterMenu controller = loader.getController();
+        controller.rememberPassword.setVisible(false);
+        controller.register.setVisible(false);
+        user_2 = user ;
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+
     }
     @FXML
     public void Log_out(MouseEvent event) throws IOException {
+        user = null ;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo/Login.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
@@ -64,10 +102,27 @@ public class MainMenu {
 
     }
     @FXML
-    public void Setting(MouseEvent event) {
+    public void Setting(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo/SettingMenu.fxml"));
+        Parent root = loader.load();
+        Setting_Menu controller = loader.getController();
+        controller.user = user ;
+        controller.mediaPlayer =mediaPlayer ;
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
     @FXML
-    public void Profil(MouseEvent event) {
+    public void Profil(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo/ProfileMenu.fxml"));
+        Parent root = loader.load();
+        ProfileMenu controller = loader.getController();
+        controller.setUser(user);
+        controller.update();
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+
     }
     @FXML
     public void Shop(ActionEvent actionEvent) {
@@ -178,4 +233,18 @@ public class MainMenu {
     public void setUser(User user) {
         this.user = user;
     }
+    private void playBackgroundMusic(String musicFileName) {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
+        String musicFile = "C:/Users/amira/intellij_project/graphic_proj/tokyo/demo/src/main/resources/com/example/demo/" + musicFileName;
+        Media sound = new Media(new File(musicFile).toURI().toString());
+        mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // برای تکرار بی‌نهایت
+        mediaPlayer.play();
+    }
+    public void changeMusic(String musicFileName) {
+        playBackgroundMusic(musicFileName);
+    }
+
 }

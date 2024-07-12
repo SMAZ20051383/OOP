@@ -1,22 +1,39 @@
 package com.example.demo;
 
+import com.example.demo.App;
+import com.example.demo.controller.Controller;
+import com.example.demo.model.User;
+import com.example.demo.view.MainMenu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Setting_Menu {
+    public User user ;
 
-    private MediaPlayer mediaPlayer;
-    private File selectedFile;
+    public MediaPlayer mediaPlayer;
+    public File selectedFile;
+    @FXML
+    private ColorPicker colorPicker;
 
+    private String savedColor;
+    private Color color ;
     @FXML
     private Button back;
 
@@ -31,10 +48,33 @@ public class Setting_Menu {
 
     @FXML
     private Button change;
+    @FXML
+    void stopMusic(ActionEvent event) {
+        if (mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayer.setVolume(0);
+        }
+    }
+    @FXML
+    public void play(ActionEvent actionEvent) {
+        if (mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayer.setVolume(.5);
+        }
+    }
+
 
     @FXML
-    void back(ActionEvent event) {
-        // Implement back button action if needed
+    void back(ActionEvent event) throws IOException {
+        color = colorPicker.getValue();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo/Main_Menu.fxml"));
+        Parent root = loader.load();
+        MainMenu controller = loader.getController();
+        controller.setUser(Controller.getUserByUsername(user.getUsername()));
+        controller.color = color ;
+        System.out.println(color);
+        controller.update();
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+
     }
 
     @FXML
@@ -57,7 +97,7 @@ public class Setting_Menu {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose Music File");
         fileChooser.getExtensionFilters().addAll(
-                new ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"));
+                new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"));
         selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
             playBackgroundMusic(selectedFile);
@@ -77,4 +117,6 @@ public class Setting_Menu {
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
     }
+
+
 }

@@ -17,9 +17,9 @@
       <TextField fx:id="Password" layoutX="92.0" layoutY="61.0" />
       <TextField fx:id="Email" layoutX="92.0" layoutY="159.0" />
       <Button fx:id="change" layoutX="445.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#change" text="change" />
-      <Label fx:id="UserNameLabel" layoutX="386.0" layoutY="25.0" prefHeight="17.0" prefWidth="118.0" text="Label" />
-      <Label fx:id="EmailLabel" layoutX="382.0" layoutY="163.0" prefHeight="17.0" prefWidth="118.0" text="Label" />
-      <Label fx:id="NickNameLabel" layoutX="386.0" layoutY="115.0" prefHeight="17.0" prefWidth="118.0" text="Label" />
-      <Label fx:id="PasswordLabel" layoutX="386.0" layoutY="65.0" prefHeight="17.0" prefWidth="118.0" text="Label" />
+      <Label fx:id="UserNameLabel" layoutX="382.0" layoutY="25.0" prefHeight="17.0" prefWidth="210.0" text="Label" />
+      <Label fx:id="EmailLabel" layoutX="382.0" layoutY="163.0" prefHeight="17.0" prefWidth="201.0" text="Label" />
+      <Label fx:id="NickNameLabel" layoutX="382.0" layoutY="115.0" prefHeight="17.0" prefWidth="201.0" text="Label" />
+      <Label fx:id="PasswordLabel" layoutX="382.0" layoutY="65.0" prefHeight="17.0" prefWidth="210.0" text="Label" />
    </children>
 </AnchorPane>

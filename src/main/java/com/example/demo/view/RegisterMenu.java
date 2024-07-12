@@ -45,7 +45,10 @@ public class RegisterMenu extends Application {
     private Label countdownLabel;
     @FXML
     private Button ersal_login ;
-
+    @FXML
+    public Button register ;
+    @FXML
+    public Button rememberPassword ;
 
     @FXML
     public void initialize() {
@@ -64,6 +67,7 @@ public class RegisterMenu extends Application {
                 MainMenu controller = loader.getController();
                 controller.setUser(Controller.getUserByUsername(user));
                 controller.update();
+                MainMenu.runGame(event);
                 Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(root));
             } catch (IOException e) {

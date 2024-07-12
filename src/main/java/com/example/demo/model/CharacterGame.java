@@ -7,6 +7,7 @@ import java.util.Random;
 import static com.example.demo.view.MainMenu.selectRandomNumbers;
 
 public class CharacterGame {
+
     private String name;
     public ArrayList<Card> cards = new ArrayList<>();
 
@@ -41,6 +42,9 @@ public class CharacterGame {
             }
         }
         return false ;
+    }
+    public static CharacterGame setChar(ArrayList<CharacterGame>charactors , int num ){
+        return charactors.get(num-1);
     }
 
 }

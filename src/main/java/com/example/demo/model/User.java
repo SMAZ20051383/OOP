@@ -6,6 +6,7 @@ import java.util.*;
 
 public class User {
     public static ArrayList<User> allUsers = new ArrayList<>() ;
+    public int character ;
     private  String username;
     public ArrayList<Card> cards = new ArrayList<>();
     public   ArrayList<Card> battleDeck = new ArrayList<>();
